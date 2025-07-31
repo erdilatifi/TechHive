@@ -1,5 +1,7 @@
 ![TechHive Demo](./public/demoapp.png)
+
 Project Demo: [Watch the Demo Video](https://drive.google.com/file/d/1A7BO5w7OsahNwxu1cKB5SnsyGJ3ZaHjy/view?usp=drive_link)
+
 TechHive – E-commerce with Admin Dashboard
 
 TechHive is a modern e-commerce platform that includes an admin dashboard for a specfic user. Built with Next.js and TypeScript, it provides a complete product management system, integrates Stripe for secure payments, uses Clerk for authentication, Supabase for image storage, and leverages Zustand, TailwindCSS, and shadcn/ui for state management and a clean, responsive UI.
@@ -29,6 +31,7 @@ You can define which user is allowed to access the admin dashboard by adding the
 bash
 Copy
 Edit
+
 NEXT_PUBLIC_ADMIN_USER_ID=your_clerk_user_id_here
 Only the user with this NEXT_PUBLIC_ADMIN_USER_ID will have access to the admin dashboard at /admin.
 
