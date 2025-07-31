@@ -1,4 +1,5 @@
 ![TechHive Demo](./public/demoapp.png)
+Project Demo: [Watch the Demo Video]([https://drive.google.com/file/d/YOUR_FILE_ID/view?usp=sharing](https://drive.google.com/file/d/1A7BO5w7OsahNwxu1cKB5SnsyGJ3ZaHjy/view?usp=drive_link))
 TechHive – E-commerce with Admin Dashboard
 
 TechHive is a modern e-commerce platform that includes an admin dashboard for a specific user. Built with Next.js and TypeScript, it provides a complete product management system, integrates Stripe for secure payments, uses Clerk for authentication, Supabase for image storage, and leverages Zustand, TailwindCSS, and shadcn/ui for state management and a clean, responsive UI.
