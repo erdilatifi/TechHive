@@ -1,31 +1,56 @@
-# E-commerce Admin Dashboard
+![TechHive Demo](./public/demoapp.png) to ![TechHive Demo](demoapp.png) 
+TechHive – E-commerce with Admin Dashboard
 
-This is a [Next.js](https://nextjs.org) project with Stripe integration for e-commerce functionality and an admin dashboard for product management.
+TechHive is a modern e-commerce platform that includes an admin dashboard for a specific user. Built with Next.js and TypeScript, it provides a complete product management system, integrates Stripe for secure payments, uses Clerk for authentication, Supabase for image storage, and leverages Zustand, TailwindCSS, and shadcn/ui for state management and a clean, responsive UI.
 
-## Features
+This project is perfect for developers looking to build a fully functional e-commerce solution with a scalable tech stack.
 
-- **Admin Dashboard**: Create, update, and delete products
-- **Product Management**: Upload images, set prices, and manage product details
-- **Stripe Integration**: Secure payment processing
-- **Authentication**: Protected admin routes with Clerk
-- **Image Storage**: Supabase storage for product images
+🚀 Features
+Admin Dashboard: Create, update, and delete products
 
-## Getting Started
+Product Management: Upload images, set prices, and manage product details
 
-### Prerequisites
+Stripe Integration: Secure payment processing
 
-1. **Stripe Account**: Set up a Stripe account and get your API keys
-2. **Clerk Account**: Set up Clerk for authentication
-3. **Supabase Account**: Set up Supabase for image storage
+Authentication: Protected admin routes with Clerk
 
-### Environment Variables
+Image Storage: Supabase storage for product images
 
-Create a `.env.local` file in the root directory with the following variables:
+State Management: Simplified state handling using Zustand
 
-```bash
+UI Components: Beautiful and accessible UI built with shadcn/ui
+
+TailwindCSS: Utility-first CSS for responsive and fast styling
+
+🔑 Admin User Configuration
+You can define which user is allowed to access the admin dashboard by adding their Clerk User ID to your .env.local file:
+
+bash
+Copy
+Edit
+NEXT_PUBLIC_ADMIN_USER_ID=your_clerk_user_id_here
+Only the user with this NEXT_PUBLIC_ADMIN_USER_ID will have access to the admin dashboard at /admin.
+
+🛠️ Getting Started
+Prerequisites
+Stripe Account: Set up a Stripe account and get your API keys
+
+Clerk Account: Set up Clerk for authentication
+
+Supabase Account: Set up Supabase for image storage
+
+Environment Variables
+Create a .env.local file in the root directory and configure the following:
+
+bash
+Copy
+Edit
 # Clerk Authentication
 NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=your_clerk_publishable_key_here
 CLERK_SECRET_KEY=your_clerk_secret_key_here
+
+# Admin User Configuration
+NEXT_PUBLIC_ADMIN_USER_ID=your_clerk_user_id_here
 
 # Stripe Configuration
 STRIPE_SECRET_KEY=your_stripe_secret_key_here
@@ -35,58 +60,66 @@ NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=your_stripe_publishable_key_here
 NEXT_PUBLIC_SUPABASE_URL=your_supabase_url_here
 NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key_here
 SUPABASE_SERVICE_ROLE_KEY=your_supabase_service_role_key_here
-```
+Supabase Setup
+Create a new Supabase project
 
-### Supabase Setup
+Create a storage bucket named products for image uploads
 
-1. Create a new Supabase project
-2. Create a storage bucket named `products` for image uploads
-3. Set the bucket to public for image access
-4. Configure CORS policies if needed
+Set the bucket to public for image access
 
-### Installation
+Configure CORS policies if needed
 
-```bash
+Installation
+bash
+Copy
+Edit
 npm install
 # or
 yarn install
 # or
 pnpm install
-```
+Development
+Run the development server:
 
-### Development
-
-```bash
+bash
+Copy
+Edit
 npm run dev
 # or
 yarn dev
 # or
 pnpm dev
-```
+Open http://localhost:3000 with your browser to view the app.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+🛒 Admin Features
+Create Products: Add new products with name, description, price, and image
 
-### Admin Access
+Update Products: Edit existing product details, including price updates
 
-Navigate to `/admin` to access the admin dashboard. You'll need to be authenticated with Clerk to access this page.
+Delete Products: Remove products from your store
 
-## Admin Features
+Image Upload: Upload product images to Supabase storage
 
-- **Create Products**: Add new products with name, description, price, and image
-- **Update Products**: Edit existing product details including price updates
-- **Delete Products**: Remove products from your store
-- **Image Upload**: Upload product images to Supabase storage
-- **Real-time Updates**: See changes immediately after operations
+Real-time Updates: See changes instantly after operations
 
-## Learn More
+📚 Learn More
+To learn more about the technologies used:
 
-To learn more about Next.js, take a look at the following resources:
+Next.js Documentation – Learn about Next.js features and API
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Stripe Documentation – Integrate secure payments
 
-## Deploy on Vercel
+Clerk Documentation – Manage authentication and users
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Supabase Documentation – Store and retrieve images
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Zustand – State management
+
+shadcn/ui – Beautiful and reusable UI components
+
+TailwindCSS – Utility-first CSS framework
+
+🚀 Deployment
+The easiest way to deploy your Next.js app is to use Vercel.
+
+Check out the Next.js deployment documentation for more details.
