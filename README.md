@@ -1,8 +1,60 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# E-commerce Admin Dashboard
+
+This is a [Next.js](https://nextjs.org) project with Stripe integration for e-commerce functionality and an admin dashboard for product management.
+
+## Features
+
+- **Admin Dashboard**: Create, update, and delete products
+- **Product Management**: Upload images, set prices, and manage product details
+- **Stripe Integration**: Secure payment processing
+- **Authentication**: Protected admin routes with Clerk
+- **Image Storage**: Supabase storage for product images
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+1. **Stripe Account**: Set up a Stripe account and get your API keys
+2. **Clerk Account**: Set up Clerk for authentication
+3. **Supabase Account**: Set up Supabase for image storage
+
+### Environment Variables
+
+Create a `.env.local` file in the root directory with the following variables:
+
+```bash
+# Clerk Authentication
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=your_clerk_publishable_key_here
+CLERK_SECRET_KEY=your_clerk_secret_key_here
+
+# Stripe Configuration
+STRIPE_SECRET_KEY=your_stripe_secret_key_here
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=your_stripe_publishable_key_here
+
+# Supabase Configuration
+NEXT_PUBLIC_SUPABASE_URL=your_supabase_url_here
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key_here
+SUPABASE_SERVICE_ROLE_KEY=your_supabase_service_role_key_here
+```
+
+### Supabase Setup
+
+1. Create a new Supabase project
+2. Create a storage bucket named `products` for image uploads
+3. Set the bucket to public for image access
+4. Configure CORS policies if needed
+
+### Installation
+
+```bash
+npm install
+# or
+yarn install
+# or
+pnpm install
+```
+
+### Development
 
 ```bash
 npm run dev
@@ -10,15 +62,21 @@ npm run dev
 yarn dev
 # or
 pnpm dev
-# or
-bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Admin Access
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Navigate to `/admin` to access the admin dashboard. You'll need to be authenticated with Clerk to access this page.
+
+## Admin Features
+
+- **Create Products**: Add new products with name, description, price, and image
+- **Update Products**: Edit existing product details including price updates
+- **Delete Products**: Remove products from your store
+- **Image Upload**: Upload product images to Supabase storage
+- **Real-time Updates**: See changes immediately after operations
 
 ## Learn More
 
@@ -26,8 +84,6 @@ To learn more about Next.js, take a look at the following resources:
 
 - [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
 - [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
 ## Deploy on Vercel
 
