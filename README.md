@@ -1,129 +1,115 @@
-![TechHive Demo](./public/demoapp.png)
+# TechHive
 
-Project Demo: [Watch the Demo Video](https://drive.google.com/file/d/1A7BO5w7OsahNwxu1cKB5SnsyGJ3ZaHjy/view?usp=drive_link)
+An electronics storefront with a built-in admin dashboard. Stripe is the product catalog and the payment processor, so products, prices and checkout all live in one place.
 
-TechHive – E-commerce with Admin Dashboard
+![TechHive](docs/screenshot.png)
 
-TechHive is a modern e-commerce platform that includes an admin dashboard for a specfic user. Built with Next.js and TypeScript, it provides a complete product management system, integrates Stripe for secure payments, uses Clerk for authentication, Supabase for image storage, and leverages Zustand, TailwindCSS, and shadcn/ui for state management and a clean, responsive UI.
+[Demo video](https://drive.google.com/file/d/1A7BO5w7OsahNwxu1cKB5SnsyGJ3ZaHjy/view?usp=drive_link)
 
-This project is perfect for developers looking to build a fully functional e-commerce solution with a scalable tech stack.
+## Features
 
-🚀 Features
-Admin Dashboard: Create, update, and delete products
+**Storefront**
 
-Product Management: Upload images, set prices, and manage product details
+- Product catalog with listing and detail pages
+- A cart managed in a persisted Zustand store
+- Hosted Stripe Checkout with success and cancel redirects
+- Sign-up, sign-in and profile management through Clerk
 
-Stripe Integration: Secure payment processing
+**Admin dashboard**
 
-Authentication: Protected admin routes with Clerk
+- Create, edit and delete products from `/admin`
+- Changing a price creates a new Stripe price and makes it the default, so past orders keep their original price
+- Product images are uploaded to Supabase Storage
+- Access is limited to a single Clerk user ID, checked in middleware
 
-Image Storage: Supabase storage for product images
+## Tech stack
 
-State Management: Simplified state handling using Zustand
+| Layer          | Technology                                      |
+| -------------- | ----------------------------------------------- |
+| Framework      | Next.js 15 (App Router, Server Actions), React 19, TypeScript |
+| Styling        | Tailwind CSS 4, shadcn/ui, Radix UI             |
+| State          | Zustand                                         |
+| Authentication | Clerk                                           |
+| Payments       | Stripe (Products, Prices, Checkout)             |
+| File storage   | Supabase Storage                                |
 
-UI Components: Beautiful and accessible UI built with shadcn/ui
+## How it works
 
-TailwindCSS: Utility-first CSS for responsive and fast styling
+```
+Admin form ──> Server Action ──> Stripe Products / Prices
+                     │
+                     └──> Supabase Storage (product images)
 
-🔑 Admin User Configuration
-You can define which user is allowed to access the admin dashboard by adding their Clerk User ID to your .env.local file:
+Storefront ──> Stripe Products API (catalog)
+Cart ──> Server Action ──> Stripe Checkout Session ──> /success
+```
 
-bash
-Copy
-Edit
+Route protection lives in [`middleware.ts`](middleware.ts). Public routes are the home page, the product pages and the auth pages. Every other route requires a signed-in user, and `/admin` also requires that user to match `NEXT_PUBLIC_ADMIN_USER_ID`.
 
-NEXT_PUBLIC_ADMIN_USER_ID=your_clerk_user_id_here
-Only the user with this NEXT_PUBLIC_ADMIN_USER_ID will have access to the admin dashboard at /admin.
+## Project structure
 
-🛠️ Getting Started
-Prerequisites
-Stripe Account: Set up a Stripe account and get your API keys
+```
+app/
+  (pages)/        admin, checkout, products, profile, sign-in, sign-up, success
+  actions/        Server Actions for Stripe and Supabase
+components/
+  component/      Product list, product form, admin list, carousel, navbar
+  ui/             shadcn/ui primitives
+lib/              Stripe and Supabase clients
+store/            Zustand cart store
+middleware.ts     Clerk authentication and admin guard
+```
 
-Clerk Account: Set up Clerk for authentication
+## Getting started
 
-Supabase Account: Set up Supabase for image storage
+### Prerequisites
 
-Environment Variables
-Create a .env.local file in the root directory and configure the following:
+- Node.js 18 or later
+- [Clerk](https://clerk.com), [Stripe](https://stripe.com) and [Supabase](https://supabase.com) accounts
 
-bash
-Copy
-Edit
-# Clerk Authentication
-NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=your_clerk_publishable_key_here
-CLERK_SECRET_KEY=your_clerk_secret_key_here
+### Setup
 
-# Admin User Configuration
-NEXT_PUBLIC_ADMIN_USER_ID=your_clerk_user_id_here
+1. Install dependencies.
 
-# Stripe Configuration
-STRIPE_SECRET_KEY=your_stripe_secret_key_here
-NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=your_stripe_publishable_key_here
+   ```bash
+   npm install
+   ```
 
-# Supabase Configuration
-NEXT_PUBLIC_SUPABASE_URL=your_supabase_url_here
-NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key_here
-SUPABASE_SERVICE_ROLE_KEY=your_supabase_service_role_key_here
-Supabase Setup
-Create a new Supabase project
+2. In Supabase Storage, create a public bucket named `products`.
 
-Create a storage bucket named products for image uploads
+3. Copy `.env.example` to `.env.local` and fill in the values.
 
-Set the bucket to public for image access
+   ```bash
+   cp .env.example .env.local
+   ```
 
-Configure CORS policies if needed
+   | Variable                            | Description                                         |
+   | ----------------------------------- | --------------------------------------------------- |
+   | `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY` | Clerk publishable key                               |
+   | `CLERK_SECRET_KEY`                  | Clerk secret key                                    |
+   | `NEXT_PUBLIC_ADMIN_USER_ID`         | Clerk user ID of the person allowed into `/admin`   |
+   | `STRIPE_SECRET_KEY`                 | Stripe secret key (use a test key for development)  |
+   | `NEXT_PUBLIC_SUPABASE_URL`          | Supabase project URL                                |
+   | `NEXT_PUBLIC_SUPABASE_ANON_KEY`     | Supabase anonymous public key                       |
+   | `NEXT_PUBLIC_BASE_URL`              | Public URL of the app, used for Stripe redirects    |
 
-Installation
-bash
-Copy
-Edit
-npm install
-# or
-yarn install
-# or
-pnpm install
-Development
-Run the development server:
+4. Start the development server and open http://localhost:3000.
 
-bash
-Copy
-Edit
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-Open http://localhost:3000 with your browser to view the app.
+   ```bash
+   npm run dev
+   ```
 
-🛒 Admin Features
-Create Products: Add new products with name, description, price, and image
+### Scripts
 
-Update Products: Edit existing product details, including price updates
+| Command         | Description                   |
+| --------------- | ----------------------------- |
+| `npm run dev`   | Start the development server  |
+| `npm run build` | Create a production build     |
+| `npm start`     | Serve the production build    |
+| `npm run lint`  | Run ESLint                    |
 
-Delete Products: Remove products from your store
+## License
 
-Image Upload: Upload product images to Supabase storage
+Copyright (c) 2025 Erdi Latifi.
 
-Real-time Updates: See changes instantly after operations
-
-📚 Learn More
-To learn more about the technologies used:
-
-Next.js Documentation – Learn about Next.js features and API
-
-Stripe Documentation – Integrate secure payments
-
-Clerk Documentation – Manage authentication and users
-
-Supabase Documentation – Store and retrieve images
-
-Zustand – State management
-
-shadcn/ui – Beautiful and reusable UI components
-
-TailwindCSS – Utility-first CSS framework
-
-🚀 Deployment
-The easiest way to deploy your Next.js app is to use Vercel.
-
-Check out the Next.js deployment documentation for more details.
+This project is source-available under the [PolyForm Noncommercial License 1.0.0](LICENSE). You may use, study and modify it for personal, educational and other noncommercial purposes. Commercial use is not permitted without written permission from the author.
